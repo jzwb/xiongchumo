@@ -1,0 +1,4 @@
+server:
+  port: 8090
+file:
+  path: E:\workspace\project\github\zhifu-admin-file
