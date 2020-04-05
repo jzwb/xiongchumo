@@ -1,0 +1,131 @@
+<style lang="less">
+</style>
+
+<template>
+  <div>
+    <panel>
+      <button open-type="getUserInfo" bindgetuserinfo="wxLogin" size="mini">微信登陆</button>
+    </panel>
+    <panel>
+      <form bindsubmit="login">
+        <view class="section">
+          <view class="section__username">账号</view>
+          <input name="username" placeholder="请输入账号(手机、邮箱)" />
+        </view>
+        <view class="section">
+          <view class="section__password">密码</view>
+          <input name="password" type="password" placeholder="请输入密码" />
+        </view>
+        <view class="btn-area">
+          <button formType="submit" size="mini">账号密码登陆</button>
+        </view>
+      </form>
+    </panel>
+    <panel>
+      <p>
+      <button @tap="testGet" size="mini">测试GET请求</button>
+      <button @tap="testPost" size="mini">测试POST请求</button>
+      </p>
+      <p>
+      <button @tap="testRSA" size="mini">测试RSA加密解密</button>
+      </p>
+    </panel>
+  </div>
+</template>
+
+<script>
+  import wepy from '@wepy/core'
+  import api from '@/api/api';
+  import base64 from '@/utils/base64';
+  import rsa from '@/utils/rsa';
+
+
+  wepy.page({
+    methods:{
+      wxLogin(e){
+        let self = this;
+        wx.getSetting({
+          success:result => {
+            if(result.authSetting['scope.userInfo']){
+              wx.login({
+                success:result1 => {
+                  api.wxLogin({
+                    data : {
+                      code : result1.code,
+                      encryptedData : e.$wx.detail.encryptedData,
+                      iv : e.$wx.detail.iv
+                    }
+                  }).then(data => {
+                    let header = data.header;
+                    data = data.data;
+                    if(data.type === 'success'){
+                      //登录成功
+                      //cookie保存
+                      self.cookieSave(header['Set-Cookie']);
+                    }else{
+                      //登录失败
+                    }
+                    wx.showToast({
+                      title:data.content
+                    });
+                  });
+                }
+              });
+            }else{
+              console.log("授权失败");
+            }
+          }
+        });
+      },
+      login(e){
+
+        console.log(e);
+      },
+      //cookie保存
+      cookieSave(cookie){
+        let newCookie = '';
+        let session = cookie.match(/SESSION=(\S*)\;/);//会话sessionid
+        if(session){
+          newCookie += session[0];
+        }
+        wx.setStorageSync("cookie", newCookie);
+      },
+      //测试请求
+      testGet(){
+        api.testGet().then(data => {
+          console.log(data);
+        });
+      },
+      testPost(){
+        api.testPost().then(data => {
+          console.log(data);
+        });
+      },
+      testRSA(){
+        api.getPublicKey().then(data => {
+          console.log(data);
+          data = data.data.data;
+          let _rsa = new rsa();
+          _rsa.setPublic(base64.b64tohex(data.modulus), base64.b64tohex(data.exponent));
+          let test = base64.hex2b64(_rsa.encrypt("123"));
+          api.rsaDecrypt({
+            data:{
+              test:test
+            }
+          }).then(data => {
+            console.log(data);
+          });
+        });
+      }
+    },
+    created() {
+    }
+  });
+</script>
+<config>
+  {
+    usingComponents: {
+      panel: '~@/components/panel',
+    }
+  }
+</config>
