@@ -46,6 +46,7 @@ spring:
       time_format: HH:mm:ss
       datetime_format: yyyy-MM-dd HH:mm:ss
       tag_syntax: auto_detect
+      number_format: 0.######
   redis:
     host: 192.168.31.90
     password:

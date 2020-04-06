@@ -1,6 +1,7 @@
 package com.xcm.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.CascadeType;
@@ -17,8 +18,8 @@ import java.util.List;
  *  Entity - 生产商
  */
 @Entity
-@Table(name = "t_producter")
-public class Producter extends BaseEntity {
+@Table(name = "t_producer")
+public class Producer extends BaseEntity {
     private String name;//名称
     private Long views = 0L;//浏览量
     private Long likes = 0L;//点赞数
@@ -26,6 +27,7 @@ public class Producter extends BaseEntity {
     private String content;//内容
     private List<Product> products = new ArrayList<>();//商品
 
+    @JsonProperty
     @NotEmpty
     @Length(max = 200)
     @Column(nullable = false)
@@ -69,7 +71,7 @@ public class Producter extends BaseEntity {
         this.content = content;
     }
 
-    @OneToMany(mappedBy = "producter", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "producer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     public List<Product> getProducts() {
         return products;
     }

@@ -1,5 +1,6 @@
 package com.xcm.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "t_product")
-public class Product extends OrderEntity {
+public class Product extends BaseEntity {
 
     private String title;//标题
     private String subTitle;//子标题
@@ -25,8 +26,9 @@ public class Product extends OrderEntity {
     private Long likes = 0L;//点赞数
     private String content;//内容
     private ProductCategory productCategory;//商品分类
-    private Producter producter;//生产商
+    private Producer producer;//生产商
 
+    @JsonProperty
     @NotEmpty
     @Length(max = 200)
     @Column(nullable = false)
@@ -93,11 +95,11 @@ public class Product extends OrderEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    public Producter getProducter() {
-        return producter;
+    public Producer getProducer() {
+        return producer;
     }
 
-    public void setProducter(Producter producter) {
-        this.producter = producter;
+    public void setProducer(Producer producer) {
+        this.producer = producer;
     }
 }
