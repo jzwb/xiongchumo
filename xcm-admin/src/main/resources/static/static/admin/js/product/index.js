@@ -23,6 +23,8 @@
         cols: [[
             {type: "checkbox", width: 50, fixed: "left"},
             {field: 'title', align:'center', title: '标题',unresize:true},
+            {field: 'productCategory', align:'center', title: '分类',unresize:true},
+            {field: 'producer', align:'center', title: '生产商',unresize:true},
             {field: 'createDate', align:'center', title: '创建日期',unresize:true},
             {title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center"},
         ]],

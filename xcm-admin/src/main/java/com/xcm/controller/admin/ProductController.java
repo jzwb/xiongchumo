@@ -3,10 +3,13 @@ package com.xcm.controller.admin;
 import com.xcm.common.Message;
 import com.xcm.common.Page;
 import com.xcm.common.Pageable;
+import com.xcm.model.Producer;
 import com.xcm.model.Product;
+import com.xcm.model.ProductCategory;
 import com.xcm.service.ProducerService;
 import com.xcm.service.ProductCategoryService;
 import com.xcm.service.ProductService;
+import com.xcm.util.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,9 +57,21 @@ public class ProductController extends BaseController {
     @ResponseBody
     public Message list(Pageable pageable) {
         Page<Product> page = productService.findPage(pageable);
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for (Product product : page.getContent()) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", product.getId());
+            map.put("title", product.getTitle());
+            ProductCategory productCategory = product.getProductCategory();
+            map.put("productCategory", productCategory != null ? productCategory.getName() : null);
+            Producer producer = product.getProducer();
+            map.put("producer", producer != null ? producer.getName() : null);
+            map.put("createDate", DateTimeUtils.getFormatDate(product.getCreateDate(), DateTimeUtils.FULL_DATE_FORMAT));
+            mapList.add(map);
+        }
         Map<String, Object> data = new HashMap<>();
         data.put("total", page.getTotal());
-        data.put("content", page.getContent());
+        data.put("content", mapList);
         return Message.success("成功", data);
     }
 

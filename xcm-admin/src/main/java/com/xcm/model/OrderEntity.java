@@ -17,7 +17,7 @@ public abstract class OrderEntity extends BaseEntity implements Comparable<Order
 	public static final String ORDER_PROPERTY_NAME = "order";
 
 	/** 排序 */
-	private Integer order;
+	private Integer order = 9999;
 
 	/**
 	 * 获取排序
