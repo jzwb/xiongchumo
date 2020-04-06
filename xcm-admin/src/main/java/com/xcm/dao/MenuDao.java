@@ -23,8 +23,8 @@ public interface MenuDao extends BaseDao<Menu, Long> {
 
     /**
      * 查找子级
-     * @param category
+     * @param menu
      * @return
      */
-    List<Menu> findChildren(Menu category);
+    List<Menu> findChildren(Menu menu);
 }

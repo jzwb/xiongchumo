@@ -1,5 +1,6 @@
 package com.xcm.model;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.List;
 @Entity
 @Table(name = "t_product_category")
 public class ProductCategory extends OrderEntity {
+
+    public static final String TREE_PATH_SEPARATOR = ",";//树路径分隔符
 
     private String name;//名称
     private String fullName;//全名称
@@ -79,5 +83,21 @@ public class ProductCategory extends OrderEntity {
 
     public void setChildren(List<ProductCategory> children) {
         this.children = children;
+    }
+
+    /**
+     * 获取树路径
+     * @return
+     */
+    @Transient
+    public List<Long> getTreePaths() {
+        List<Long> treePaths = new ArrayList<>();
+        String[] ids = StringUtils.split(getTreePath(), TREE_PATH_SEPARATOR);
+        if (ids != null) {
+            for (String id : ids) {
+                treePaths.add(Long.valueOf(id));
+            }
+        }
+        return treePaths;
     }
 }

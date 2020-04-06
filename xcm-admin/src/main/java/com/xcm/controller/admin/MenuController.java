@@ -59,7 +59,7 @@ public class MenuController extends BaseController {
             map.put("order", menu.getOrder());
             Menu parent = menu.getParent();
             map.put("parent", parent != null ? parent.getId() : -1);
-             mapList.add(map);
+            mapList.add(map);
         }
         return Message.success("成功", mapList);
     }

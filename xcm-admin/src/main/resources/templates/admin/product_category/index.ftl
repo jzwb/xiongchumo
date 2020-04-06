@@ -24,7 +24,7 @@
             <div class="layui-btn-group">
                 <button class="layui-btn layui-btn-sm data-add-btn"> 添加 </button>
             </div>
-            <table id="menu-table" class="layui-table" lay-filter="menu-table"></table>
+            <table id="product-category-table" class="layui-table" lay-filter="product-category-table"></table>
         </div>
     </div>
 </div>
@@ -38,7 +38,7 @@
 <script>
     layui.config({
         base: '/static/admin/js/'
-    }).use('menu/index');
+    }).use('product_category/index');
 </script>
 </body>
 </html>

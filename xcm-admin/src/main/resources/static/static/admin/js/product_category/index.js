@@ -10,27 +10,13 @@
         treeSpid: -1,
         treeIdName: 'id',
         treePidName: 'parent',
-        elem: '#menu-table',
-        url: '/admin/menu/list/',
+        elem: '#product-category-table',
+        url: '/admin/product_category/list/',
         page: false,
         cols: [[
             {type: 'numbers'},
-            {field: 'title', minWidth: 200, title: '权限名称'},
-            {field: 'authority', title: '权限标识'},
-            {field: 'href', title: '菜单url'},
+            {field: 'name', minWidth: 200, title: '名称'},
             {field: 'order', width: 80, align: 'center', title: '排序'},
-            {
-                field: 'isMenu', width: 80, align: 'center', templet: function (d) {
-                    if (d.isMenu == 1) {
-                        return '<span class="layui-badge layui-bg-gray">按钮</span>';
-                    }
-                    if (d.parentId == -1) {
-                        return '<span class="layui-badge layui-bg-blue">目录</span>';
-                    } else {
-                        return '<span class="layui-badge-rim">菜单</span>';
-                    }
-                }, title: '类型'
-            },
             {templet: '#auth-state', width: 120, align: 'center', title: '操作'}
         ]],
         done: function () {
@@ -39,23 +25,23 @@
     });
 
     $('#btn-expand').click(function () {
-        treetable.expandAll('#menu-table');
+        treetable.expandAll('#product-category-table');
     });
 
     $('#btn-fold').click(function () {
-        treetable.foldAll('#menu-table');
+        treetable.foldAll('#product-category-table');
     });
 
     //添加
     $(".data-add-btn").on("click", function () {
         var index = layer.open({
-            title: '添加角色',
+            title: '添加商品分类',
             type: 2,
             shade: 0.2,
             maxmin:true,
             shadeClose: true,
             area: ['100%', '100%'],
-            content: '/admin/menu/form/',
+            content: '/admin/product_category/form/',
         });
         $(window).on("resize", function () {
             layer.full(index);
@@ -64,7 +50,7 @@
     });
 
     //监听工具条
-    table.on('tool(menu-table)', function (obj) {
+    table.on('tool(product-category-table)', function (obj) {
         var data = obj.data;
         var layEvent = obj.event;
 
@@ -72,13 +58,13 @@
             del([data.id]);
         } else if (layEvent === 'edit') {
             var index = layer.open({
-                title: '编辑菜单',
+                title: '编辑商品分类',
                 type: 2,
                 shade: 0.2,
                 maxmin:true,
                 shadeClose: true,
                 area: ['100%', '100%'],
-                content: '/admin/menu/form/?id=' + data.id,
+                content: '/admin/product_category/form/?id=' + data.id,
             });
             $(window).on("resize", function () {
                 layer.full(index);
@@ -95,7 +81,7 @@
             $.ajax({
                 method:"POST",
                 dataType: "json",
-                url:"/admin/menu/delete/",
+                url:"/admin/product_category/delete/",
                 data:{
                     ids : ids.join(',')
                 },
@@ -103,7 +89,7 @@
                     if(result.type === 'success'){
                         layer.msg("操作成功", {time: 1000}, function () {
                             layer.close(index);
-                            window.location.href = "/admin/menu/index/";
+                            window.location.href = "/admin/product_category/index/";
                         });
                     }else{
                         layer.msg(result.content, {time: 2000});
@@ -112,5 +98,5 @@
             })
         });
     }
-    exports('menu/index', {});
+    exports('product_category/index', {});
 });

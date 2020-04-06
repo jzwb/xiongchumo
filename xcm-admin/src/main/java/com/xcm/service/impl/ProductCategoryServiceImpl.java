@@ -6,6 +6,8 @@ import com.xcm.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * Service - 商品分类
@@ -19,5 +21,10 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
     @Autowired
     public void setBaseDao(ProductCategoryDao productCategoryDao) {
         super.setBaseDao(productCategoryDao);
+    }
+
+    @Override
+    public List<ProductCategory> findTree() {
+        return productCategoryDao.findTree();
     }
 }
