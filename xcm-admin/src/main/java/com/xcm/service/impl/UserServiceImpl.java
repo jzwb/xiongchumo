@@ -30,6 +30,9 @@ import java.util.Map;
 public class UserServiceImpl extends BaseServiceImpl<User, Long> implements UserService {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private UserDao userDao;
 
     @Autowired
@@ -142,5 +145,35 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
             throw new ServiceException("账号异常");
         }
         return users.get(0);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean emailExists(String email) throws ServiceException {
+        return userService.findByEmail(email) != null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean mobileExists(String mobile) throws ServiceException {
+        return userService.findByMobile(mobile) != null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean emailUnique(String oldEmail, String newEmail) throws ServiceException {
+        if (StringUtils.equalsIgnoreCase(oldEmail, newEmail)) {
+            return true;
+        }
+        return userService.emailExists(newEmail);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean mobileUnique(String oldMobile, String newMobile) throws ServiceException {
+        if (StringUtils.equalsIgnoreCase(oldMobile, newMobile)) {
+            return true;
+        }
+        return userService.mobileExists(newMobile);
     }
 }

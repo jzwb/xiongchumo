@@ -37,7 +37,7 @@
         <div class="layui-form login-form">
             <form class="layui-form" action="/admin/login/" method="post">
                 <div class="layui-form-item logo-title">
-                    <h1>Admin 后台管理系统</h1>
+                    <h1>熊出抹 后台管理系统</h1>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" for="username"></label>

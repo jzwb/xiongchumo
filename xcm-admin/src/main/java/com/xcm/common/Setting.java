@@ -41,6 +41,8 @@ public class Setting {
     private String cookieDomain;//cookie所在域
     @Value("${cookiePath}")
     private String cookiePath;//cookie所在路径
+    @Value("${appId}")
+    private String appId;//appid
 
     public String getSiteUrl() {
         return siteUrl;
@@ -104,6 +106,14 @@ public class Setting {
 
     public void setCookiePath(String cookiePath) {
         this.cookiePath = cookiePath;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
     public String[] getUploadImageExtensions() {

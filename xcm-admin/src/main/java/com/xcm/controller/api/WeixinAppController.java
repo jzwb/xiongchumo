@@ -5,10 +5,12 @@ import cn.binarywang.wx.miniapp.util.crypt.WxMaCryptUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.xcm.common.Message;
+import com.xcm.common.Setting;
 import com.xcm.config.WxMaConfig;
 import com.xcm.exception.ServiceException;
 import com.xcm.model.User;
 import com.xcm.service.UserService;
+import com.xcm.util.SettingUtils;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -44,7 +46,8 @@ public class WeixinAppController {
     @ResponseBody
     public Message login(String code, String encryptedData, String iv, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         try {
-            WxMaJscode2SessionResult wxMaJscode2SessionResult = WxMaConfig.getMaService("").jsCode2SessionInfo(code);
+            Setting setting = SettingUtils.get();
+            WxMaJscode2SessionResult wxMaJscode2SessionResult = WxMaConfig.getMaService(setting.getAppId()).jsCode2SessionInfo(code);
             String sessionKey = wxMaJscode2SessionResult.getSessionKey();
             if (StringUtils.isBlank(sessionKey)) {
                 return Message.error("获取微信账号信息异常");
