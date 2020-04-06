@@ -165,7 +165,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
         if (StringUtils.equalsIgnoreCase(oldEmail, newEmail)) {
             return true;
         }
-        return userService.emailExists(newEmail);
+        return !userService.emailExists(newEmail);
     }
 
     @Override
@@ -174,6 +174,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
         if (StringUtils.equalsIgnoreCase(oldMobile, newMobile)) {
             return true;
         }
-        return userService.mobileExists(newMobile);
+        return !userService.mobileExists(newMobile);
     }
 }

@@ -105,10 +105,10 @@ public class UserController extends BaseController {
             } else {
                 //编辑
                 user = userService.find(pUser.getId());
-                if (StringUtils.isNotBlank(email) && userService.emailUnique(user.getEmail(), email)) {
+                if (StringUtils.isNotBlank(email) && !userService.emailUnique(user.getEmail(), email)) {
                     return Message.error("邮箱已存在");
                 }
-                if (StringUtils.isNotBlank(mobile) && userService.mobileUnique(user.getMobile(), email)) {
+                if (StringUtils.isNotBlank(mobile) && !userService.mobileUnique(user.getMobile(), mobile)) {
                     return Message.error("手机已存在");
                 }
                 if (StringUtils.isNotBlank(pUser.getPassword())) {
@@ -117,6 +117,8 @@ public class UserController extends BaseController {
             }
             user.setEmail(email);
             user.setMobile(mobile);
+            user.setNickName(pUser.getNickName());
+            user.setHead(pUser.getHead());
             if (user.getId() == null) {
                 userService.save(user);
             } else {

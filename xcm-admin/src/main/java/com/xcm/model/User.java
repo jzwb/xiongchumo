@@ -18,6 +18,8 @@ public class User extends BaseEntity {
 
     private String mobile;//电话
     private String email;//邮箱
+    private String head;//头像
+    private String nickName;//昵称
     private String password;//密码
     private String unionId;//微信unionId
     private String openId;//微信openId
@@ -36,6 +38,22 @@ public class User extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getPassword() {

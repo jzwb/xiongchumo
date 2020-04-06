@@ -31,6 +31,18 @@
             <input type="text" name="mobile" value="${user.mobile}" class="layui-input">
         </div>
     </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">昵称</label>
+        <div class="layui-input-block">
+            <input type="text" name="nickName" value="${user.nickName}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">头像</label>
+        <div class="layui-input-block">
+            <input type="text" name="head" value="${user.head}" class="layui-input">
+        </div>
+    </div>
     <div class="layui-form-item layui-hide">
         <label class="layui-form-label">微信</label>
         <div class="layui-input-block">
@@ -38,7 +50,7 @@
             ${user.openId}
         </div>
     </div>
-    [#if !admin?has_content]
+    [#if !user?has_content]
     <div class="layui-form-item">
         <label class="layui-form-label required">密码</label>
         <div class="layui-input-block">
