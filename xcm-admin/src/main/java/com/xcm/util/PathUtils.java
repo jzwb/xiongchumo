@@ -98,13 +98,13 @@ public class PathUtils {
 	 * @return
 	 */
 	public static String getStaticUrl(String filePath) {
-		Setting setting = SettingUtils.get();
+		String staticUrl = SettingUtils.get().getStaticUrl();
 		if (filePath.startsWith(getRootPath()))
 			filePath = filePath.substring(getRootPath().length());
-		if (filePath.startsWith(setting.getSiteUrl()))
+		if (filePath.startsWith(staticUrl))
 			return filePath;
 		if (filePath.startsWith("/"))
-			return setting.getSiteUrl() + filePath;
-		return setting.getSiteUrl() + "/" + filePath;
+			return staticUrl + filePath;
+		return staticUrl + "/" + filePath;
 	}
 }

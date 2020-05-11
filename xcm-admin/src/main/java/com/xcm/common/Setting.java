@@ -27,6 +27,8 @@ public class Setting {
 
     @Value("${siteUrl}")
     private String siteUrl;//网站网址
+    @Value("${staticUrl}")
+    private String staticUrl;//静态资源地址
     @Value("${maxInMemorySize}")
     private Integer maxInMemorySize;//最大内存缓存(单位:M)
     @Value("${maxUploadSize}")
@@ -48,6 +50,14 @@ public class Setting {
 
     public void setSiteUrl(String siteUrl) {
         this.siteUrl = siteUrl;
+    }
+
+    public String getStaticUrl() {
+        return staticUrl;
+    }
+
+    public void setStaticUrl(String staticUrl) {
+        this.staticUrl = staticUrl;
     }
 
     public Integer getMaxInMemorySize() {
