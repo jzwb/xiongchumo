@@ -13,6 +13,7 @@ import javax.persistence.NoResultException;
 @Repository
 public class PluginConfigDaoImpl extends BaseDaoImpl<PluginConfig, Long> implements PluginConfigDao {
 
+	@Override
 	public boolean pluginIdExists(String pluginId) {
 		if (pluginId == null) {
 			return false;
@@ -22,6 +23,7 @@ public class PluginConfigDaoImpl extends BaseDaoImpl<PluginConfig, Long> impleme
 		return count > 0;
 	}
 
+	@Override
 	public PluginConfig findByPluginId(String pluginId) {
 		if (pluginId == null) {
 			return null;

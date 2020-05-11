@@ -40,14 +40,23 @@ public class WeixinAppController {
     /**
      * 登录
      *
+     * @param appId
+     * @param code
+     * @param encryptedData
+     * @param iv
+     * @param request
+     * @param response
+     * @param session
      * @return
      */
     @PostMapping("/login")
     @ResponseBody
-    public Message login(String code, String encryptedData, String iv, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+    public Message login(String appId, String code, String encryptedData, String iv, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         try {
-            Setting setting = SettingUtils.get();
-            WxMaJscode2SessionResult wxMaJscode2SessionResult = WxMaConfig.getMaService(setting.getAppId()).jsCode2SessionInfo(code);
+            if (StringUtils.isBlank(appId) || StringUtils.isBlank(code) || StringUtils.isBlank(encryptedData) || StringUtils.isBlank(iv)) {
+                return Message.error("参数错误");
+            }
+            WxMaJscode2SessionResult wxMaJscode2SessionResult = WxMaConfig.getMaService(appId).jsCode2SessionInfo(code);
             String sessionKey = wxMaJscode2SessionResult.getSessionKey();
             if (StringUtils.isBlank(sessionKey)) {
                 return Message.error("获取微信账号信息异常");

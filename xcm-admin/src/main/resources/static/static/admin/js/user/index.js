@@ -23,6 +23,7 @@
         cols: [[
             {type: "checkbox", width: 50, fixed: "left"},
             {field: 'id', align:'center', title: 'id',unresize:true},
+            {field: 'nickName', align:'center', title: '昵称',unresize:true},
             {field: 'createDate', align:'center', title: '创建日期',unresize:true},
             {title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center"},
         ]],

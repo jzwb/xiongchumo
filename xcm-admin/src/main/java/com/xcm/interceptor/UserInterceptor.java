@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 @Component
 public class UserInterceptor implements HandlerInterceptor {
 
-	static final String ACCESSDENIED_KEY = "userLoginState";
-	static final String ACCESSDENIED_VALUE = "false";
+	private static final String ACCESSDENIED_KEY = "userLoginState";
+	private static final String ACCESSDENIED_VALUE = "false";
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

@@ -16,6 +16,7 @@ public class MultipartConfig {
     public CommonsMultipartResolver getCommonsMultipartResolver() {
         Setting setting = SettingUtils.get();
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setDefaultEncoding("UTF-8");
         multipartResolver.setMaxInMemorySize(setting.getMaxInMemorySize() * 1024 * 1024);
         multipartResolver.setMaxUploadSize(setting.getMaxUploadSize() * 1024 * 1024);
         return multipartResolver;
