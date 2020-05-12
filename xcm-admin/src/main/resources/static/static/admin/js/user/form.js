@@ -9,11 +9,56 @@
                 return '两次输入密码不一致';
             }
         },
-        role: function(value, item){
-            var name = $(item).attr('name');
-            if(!$('input[name="'+name+'"]').is(':checked')){
-                return '请选择角色';
-            }
+        checkEmailUnique: function(value, item){
+            var errorMsg;
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                async:false,
+                url: "/admin/user/check_email_unique/",
+                data: {
+                    oldEmail : $(item).attr("value"),
+                    newEmail : value
+                },
+                success: function(result){
+                    if(result.type === 'success'){
+                        if(!result.data){
+                            errorMsg = "邮箱已存在";
+                        }
+                    }else{
+                        errorMsg = result.content;
+                    }
+                },
+                error: function(){
+                    errorMsg = "邮箱校验失败";
+                }
+            });
+            return errorMsg;
+        },
+        checkMobileUnique: function(value){
+            var errorMsg;
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                async:false,
+                url: "/admin/user/check_mobile_unique/",
+                data: {
+                    mobile : value
+                },
+                success: function(result){
+                    if(result.type === 'success'){
+                        if(!result.data){
+                            errorMsg = "手机已存在";
+                        }
+                    }else{
+                        errorMsg = result.content;
+                    }
+                },
+                error: function(){
+                    errorMsg = "手机校验失败";
+                }
+            });
+            return errorMsg;
         }
     });
     form.on('submit(saveBtn)', function (data) {

@@ -119,7 +119,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     @Transactional(readOnly = true)
     public User findByEmail(String email) throws ServiceException {
         if (StringUtils.isBlank(email)) {
-            throw new ServiceException("参数错误");
+            return null;
         }
         List<User> users = userDao.findList(null, null, Collections.singletonList(Filter.eq("email", email)), null);
         if (CollectionUtils.isEmpty(users)) {
@@ -135,7 +135,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     @Transactional(readOnly = true)
     public User findByMobile(String mobile) throws ServiceException {
         if (StringUtils.isBlank(mobile)) {
-            throw new ServiceException("参数错误");
+            return null;
         }
         List<User> users = userDao.findList(null, null, Collections.singletonList(Filter.eq("mobile", mobile)), null);
         if (CollectionUtils.isEmpty(users)) {
@@ -149,19 +149,25 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 
     @Override
     @Transactional(readOnly = true)
-    public boolean emailExists(String email) throws ServiceException {
-        return userService.findByEmail(email) != null;
+    public boolean emailExists(String email){
+        if(StringUtils.isBlank(email)){
+            return false;
+        }
+        return userService.count(Filter.eq("email", email)) > 0;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public boolean mobileExists(String mobile) throws ServiceException {
-        return userService.findByMobile(mobile) != null;
+    public boolean mobileExists(String mobile){
+        if(StringUtils.isBlank(mobile)){
+            return false;
+        }
+        return userService.count(Filter.eq("mobile", mobile)) > 0;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public boolean emailUnique(String oldEmail, String newEmail) throws ServiceException {
+    public boolean emailUnique(String oldEmail, String newEmail) {
         if (StringUtils.equalsIgnoreCase(oldEmail, newEmail)) {
             return true;
         }
@@ -170,7 +176,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 
     @Override
     @Transactional(readOnly = true)
-    public boolean mobileUnique(String oldMobile, String newMobile) throws ServiceException {
+    public boolean mobileUnique(String oldMobile, String newMobile) {
         if (StringUtils.equalsIgnoreCase(oldMobile, newMobile)) {
             return true;
         }

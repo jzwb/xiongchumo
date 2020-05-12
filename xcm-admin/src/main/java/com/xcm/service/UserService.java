@@ -78,18 +78,16 @@ public interface UserService extends BaseService<User, Long> {
      *
      * @param email 邮箱
      * @return
-     * @throws ServiceException
      */
-    boolean emailExists(String email) throws ServiceException;
+    boolean emailExists(String email);
 
     /**
      * 手机是否存在
      *
      * @param mobile 手机
      * @return
-     * @throws ServiceException
      */
-    boolean mobileExists(String mobile) throws ServiceException;
+    boolean mobileExists(String mobile);
 
     /**
      * 邮箱是否唯一
@@ -97,9 +95,8 @@ public interface UserService extends BaseService<User, Long> {
      * @param oldEmail 旧邮箱
      * @param newEmail 新邮箱
      * @return
-     * @throws ServiceException
      */
-    boolean emailUnique(String oldEmail, String newEmail) throws ServiceException;
+    boolean emailUnique(String oldEmail, String newEmail);
 
     /**
      * 手机是否唯一
@@ -107,7 +104,6 @@ public interface UserService extends BaseService<User, Long> {
      * @param oldMobile 旧手机
      * @param newMobile 新手机
      * @return
-     * @throws ServiceException
      */
-    boolean mobileUnique(String oldMobile, String newMobile) throws ServiceException;
+    boolean mobileUnique(String oldMobile, String newMobile);
 }

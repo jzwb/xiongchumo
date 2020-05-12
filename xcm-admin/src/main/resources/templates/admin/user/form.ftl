@@ -19,16 +19,24 @@
     <div class="layui-form-item">
         <input type="hidden" name="id" value="${user.id}">
     </div>
+    [#if user?has_content]
+    <div class="layui-form-item">
+        <label class="layui-form-label">ID</label>
+        <div class="layui-input-block">
+            <input type="text" value="${user.id}" class="layui-input" readonly>
+        </div>
+    </div>
+    [/#if]
     <div class="layui-form-item">
         <label class="layui-form-label">邮箱</label>
         <div class="layui-input-block">
-            <input type="text" name="email" value="${user.email}" class="layui-input">
+            <input type="text" name="email" lay-verify="checkEmailUnique" value="${user.email}" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">手机</label>
         <div class="layui-input-block">
-            <input type="text" name="mobile" value="${user.mobile}" class="layui-input">
+            <input type="text" name="mobile" lay-verify="checkMobileUnique" value="${user.mobile}" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">

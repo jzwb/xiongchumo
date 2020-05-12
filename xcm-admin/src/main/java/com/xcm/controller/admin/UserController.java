@@ -88,9 +88,6 @@ public class UserController extends BaseController {
             }
             String email = pUser.getEmail();
             String mobile = pUser.getMobile();
-            if (StringUtils.isBlank(email) && StringUtils.isBlank(mobile)) {
-                return Message.error("邮箱和手机不能同时为空");
-            }
             User user;
             if (pUser.getId() == null) {
                 //新增
@@ -146,5 +143,29 @@ public class UserController extends BaseController {
     public Message delete(Long[] ids) {
         userService.delete(ids);
         return Message.success();
+    }
+
+    /**
+     * 检查邮箱唯一
+     * @param oldEmail 旧邮箱
+     * @param newEmail 新邮箱
+     * @return
+     */
+    @GetMapping("/check_email_unique")
+    @ResponseBody
+    public Message checkEmailUnique(String oldEmail, String newEmail) {
+        return Message.success("请求成功", userService.emailUnique(oldEmail, newEmail));
+    }
+
+    /**
+     * 检查手机唯一
+     * @param oldMobile 旧邮箱
+     * @param newMobile 新邮箱
+     * @return
+     */
+    @GetMapping("/check_mobile_unique")
+    @ResponseBody
+    public Message checkMobileUnique(String oldMobile, String newMobile) {
+        return Message.success("请求成功", userService.mobileUnique(oldMobile, newMobile));
     }
 }
