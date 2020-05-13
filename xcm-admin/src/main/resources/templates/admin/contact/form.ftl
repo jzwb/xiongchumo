@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Admin 后台管理系统 - 用户管理 - 编辑</title>
+    <title>Admin 后台管理系统 - 联系我管理 - 编辑</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,19 +17,13 @@
 <body>
 <div class="layui-form layuimini-form">
     <div class="layui-form-item">
-        <input type="hidden" name="id" value="${producer.id}">
+        <input type="hidden" name="id" value="${contact.id}">
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label required">名称</label>
-        <div class="layui-input-block">
-            <input type="text" name="name" lay-verify="required" lay-reqtext="名称不能为空" placeholder="请输入名称" value="${producer.name}" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">首图</label>
+        <label class="layui-form-label">图片</label>
         <div class="layui-input-block">
             <div class="layui-upload-list">
-                <input type="text" name="firstImages" value="${producer.firstImages}" class="layui-input">
+                <input type="text" name="image" value="${contact.image}" class="layui-input">
             </div>
             <button type="button" class="layui-btn file-upload-btn" data-file-type="image">
                 <i class="layui-icon">&#xe67c;</i>上传图片
@@ -37,21 +31,9 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">浏览量</label>
+        <label class="layui-form-label">描述</label>
         <div class="layui-input-block">
-            <input type="text" name="views" value="${producer.views}" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">点赞数</label>
-        <div class="layui-input-block">
-            <input type="text" name="likes" value="${producer.likes}" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">内容</label>
-        <div class="layui-input-block">
-            <input type="text" name="content" value="${producer.content}" class="layui-input">
+            <input type="text" name="description" placeholder="请输入描述" value="${contact.name}" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -64,7 +46,7 @@
 <script>
     layui.config({
         base: '/static/admin/js/'
-    }).use(['producer/form']);
+    }).use(['contact/form']);
 </script>
 </body>
 </html>

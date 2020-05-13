@@ -51,7 +51,7 @@
             <div class="layui-upload-list">
                 <input type="text" name="head" value="${user.head}" class="layui-input">
             </div>
-            <button type="button" class="layui-btn" id="file-upload-btn" data-file-type="image">
+            <button type="button" class="layui-btn file-upload-btn" data-file-type="image">
                 <i class="layui-icon">&#xe67c;</i>上传图片
             </button>
         </div>

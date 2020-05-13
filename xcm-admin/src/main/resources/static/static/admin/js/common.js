@@ -37,7 +37,7 @@
     </div>*/
     var fileUpload = function(){
         //执行实例
-        var elem = '#file-upload-btn';
+        var elem = '.file-upload-btn';
         var $elem = $(elem);
         var instance = upload.render({
             elem: elem,
@@ -52,8 +52,9 @@
                 }
             },
             done: function(result){
+                var item = this.item;
                 if(result.type === 'success'){
-                    $elem.prev().find('input').val(result.data);
+                    $(item).prev().find('input').val(result.data);
                 }else{
                     layer.msg(result.content, {time: 2000});
                 }

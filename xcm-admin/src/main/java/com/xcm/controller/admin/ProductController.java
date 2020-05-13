@@ -113,7 +113,6 @@ public class ProductController extends BaseController {
         pProduct.setContent(product.getContent());
         pProduct.setProductCategory(productCategoryService.find(productCategoryId));
         pProduct.setProducer(producerService.find(producerId));
-
         if (pProduct.getId() == null) {
             productService.save(pProduct);
         } else {

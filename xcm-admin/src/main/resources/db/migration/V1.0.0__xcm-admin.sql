@@ -120,17 +120,4 @@ CREATE TABLE `sys_log` (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-
----------------------------- 用户
-
-CREATE TABLE `t_admin`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `password` varchar(255) NOT NULL,
-  `mobile` varchar(255) NULL,
-  `email` varchar(255) NULL,
-  `union_id` varchar(255) NULL,
-  `open_id` varchar(255) NULL,
-  `create_date` datetime NOT NULL,
-  `modify_date` datetime NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+----------------------------

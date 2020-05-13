@@ -56,7 +56,12 @@
     <div class="layui-form-item">
         <label class="layui-form-label">首图</label>
         <div class="layui-input-block">
-            <input type="text" name="firstImages" value="${product.firstImages}" class="layui-input">
+            <div class="layui-upload-list">
+                <input type="text" name="firstImages" value="${product.firstImages}" class="layui-input">
+            </div>
+            <button type="button" class="layui-btn file-upload-btn" data-file-type="image">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
         </div>
     </div>
     <div class="layui-form-item">
