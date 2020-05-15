@@ -1,6 +1,5 @@
 package com.xcm.model;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
@@ -11,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,34 @@ import java.util.List;
 @Entity
 @Table(name = "t_producer")
 public class Producer extends BaseEntity {
+
+    /**
+     * 类型枚举
+     */
+    public enum Type {
+        studio("工作室"),
+        factory("工厂");
+
+        private String desc;
+
+        Type(String desc) {
+            this.desc = desc;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public static Type valueOf(int ordinal) {
+            if (ordinal < 0 || ordinal >= values().length) {
+                throw new IndexOutOfBoundsException("Invalid ordinal");
+            }
+            return values()[ordinal];
+        }
+    }
+
     private String name;//名称
+    private Type type;
     private Long views = 0L;//浏览量
     private Long likes = 0L;//点赞数
     private String firstImages;//首图
@@ -37,6 +64,16 @@ public class Producer extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @NotNull
+    @Column(nullable = false)
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Long getViews() {

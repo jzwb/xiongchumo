@@ -1,5 +1,6 @@
 package com.xcm.controller.admin;
 
+import com.alibaba.fastjson.JSONArray;
 import com.xcm.common.Message;
 import com.xcm.common.Page;
 import com.xcm.common.Pageable;
@@ -100,19 +101,21 @@ public class ProductController extends BaseController {
      */
     @PostMapping("/save")
     @ResponseBody
-    public Message save(Product product, Long productCategoryId, Long producerId) {
+    public Message save(Product product, Long productCategoryId, Long producerId, String[] images) {
         Product pProduct = productService.find(product.getId());
         if (pProduct == null) {
             pProduct = new Product();
         }
         pProduct.setTitle(product.getTitle());
         pProduct.setSubTitle(product.getSubTitle());
-        pProduct.setFirstImages(product.getFirstImages());
+        pProduct.setImagesJson(JSONArray.toJSONString(images != null ? images : new String[]{}));
         pProduct.setViews(product.getViews());
         pProduct.setLikes(product.getLikes());
         pProduct.setContent(product.getContent());
         pProduct.setProductCategory(productCategoryService.find(productCategoryId));
         pProduct.setProducer(producerService.find(producerId));
+        pProduct.setIsTop(product.getIsTop());
+        pProduct.setOrder(product.getOrder());
         if (pProduct.getId() == null) {
             productService.save(pProduct);
         } else {

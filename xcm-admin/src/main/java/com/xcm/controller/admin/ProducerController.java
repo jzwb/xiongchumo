@@ -62,6 +62,7 @@ public class ProducerController extends BaseController {
     @GetMapping("/form")
     public String form(Long id, ModelMap modelMap) {
         modelMap.addAttribute("producer", producerService.find(id));
+        modelMap.addAttribute("types", Producer.Type.values());
         return "/admin/producer/form";
     }
 
@@ -79,6 +80,7 @@ public class ProducerController extends BaseController {
             pProducer = new Producer();
         }
         pProducer.setName(producer.getName());
+        pProducer.setType(producer.getType());
         pProducer.setFirstImages(producer.getFirstImages());
         pProducer.setViews(producer.getViews());
         pProducer.setLikes(producer.getLikes());

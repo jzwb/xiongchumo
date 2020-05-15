@@ -23,38 +23,16 @@
         upload = layui.upload;
 
     //文件上传
-    //使用时dom（后续优化）
-    /*<div class="layui-form-item">
-        <label class="layui-form-label">图片</label>
-        <div class="layui-input-block">
-            <div class="layui-upload-list">
-                <input type="text" name="image" class="layui-input">
-            </div>
-            <button type="button" class="layui-btn" id="file-upload-btn" data-file-type="image">
-                <i class="layui-icon">&#xe67c;</i>上传图片
-            </button>
-        </div>
-    </div>*/
     var fileUpload = function(){
         //执行实例
-        var elem = '.file-upload-btn';
-        var $elem = $(elem);
         var instance = upload.render({
-            elem: elem,
+            elem: '.file-upload-btn',
             url: '/admin/file/upload/',
-            data:{
-                fileType:function(){
-                    var fileType = $elem.attr('data-file-type');
-                    if(!fileType){
-                        fileType = 'image';
-                    }
-                    return fileType;
-                }
-            },
             done: function(result){
                 var item = this.item;
                 if(result.type === 'success'){
-                    $(item).prev().find('input').val(result.data);
+                    var inputName = $(item).attr('data-input-name');
+                    $(item).closest("div").find('input[name="' + inputName + '"]').val(result.data);
                 }else{
                     layer.msg(result.content, {time: 2000});
                 }
@@ -62,6 +40,32 @@
             error: function(){
                 layer.msg("请求异常", {time: 2000});
             }
+        });
+        return instance;
+    }();
+
+    var filesUpload = function(){
+        //执行实例
+        var instance = upload.render({
+            elem: '.files-upload-btn',
+            url: '/admin/file/upload/',
+            done: function(result){
+                var item = this.item;
+                if(result.type === 'success'){
+                    var inputName = $(item).attr('data-input-name');
+                    var trHtml = '<tr><td><input type="text" name="' + inputName + '" value="' + result.data + '" class="layui-input"></td><td><button type="button" class="layui-btn layui-btn-sm layui-btn-danger del-btn"><i class="layui-icon">&#xe640;</i></button></td></tr>';
+                    $(item).closest("div").find('table tbody').append(trHtml);
+                }else{
+                    layer.msg(result.content, {time: 2000});
+                }
+            },
+            error: function(){
+                layer.msg("请求异常", {time: 2000});
+            }
+        });
+        //删除
+        $(document).on('click', '.files-upload .del-btn', function(){
+            $(this).closest("tr").remove();
         });
         return instance;
     }();

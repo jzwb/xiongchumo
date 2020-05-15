@@ -25,7 +25,7 @@
             <div class="layui-upload-list">
                 <input type="text" name="image" value="${contact.image}" class="layui-input">
             </div>
-            <button type="button" class="layui-btn file-upload-btn" data-file-type="image">
+            <button type="button" class="layui-btn file-upload-btn" lay-data="{data:{fileType:'image'}}" data-input-name="image">
                 <i class="layui-icon">&#xe67c;</i>上传图片
             </button>
         </div>

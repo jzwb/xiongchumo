@@ -26,12 +26,20 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">类型</label>
+        <div class="layui-input-block">
+            [#list types as type]
+                <input type="radio" name="type" value="${type}" title="${type.desc}" [#if producer.type == type]checked=""[/#if]>
+            [/#list]
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">首图</label>
         <div class="layui-input-block">
             <div class="layui-upload-list">
                 <input type="text" name="firstImages" value="${producer.firstImages}" class="layui-input">
             </div>
-            <button type="button" class="layui-btn file-upload-btn" data-file-type="image">
+            <button type="button" class="layui-btn file-upload-btn" lay-data="{data:{fileType:'image'}}" data-input-name="firstImages">
                 <i class="layui-icon">&#xe67c;</i>上传图片
             </button>
         </div>

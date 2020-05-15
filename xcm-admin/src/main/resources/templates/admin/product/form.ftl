@@ -53,15 +53,36 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">首图</label>
+    <div class="layui-form-item files-upload">
+        <label class="layui-form-label">图片</label>
         <div class="layui-input-block">
-            <div class="layui-upload-list">
-                <input type="text" name="firstImages" value="${product.firstImages}" class="layui-input">
-            </div>
-            <button type="button" class="layui-btn file-upload-btn" data-file-type="image">
+            <button type="button" class="layui-btn files-upload-btn" lay-data="{data:{fileType:'image'}}" data-input-name="images">
                 <i class="layui-icon">&#xe67c;</i>上传图片
             </button>
+            <table class="layui-table">
+                <colgroup>
+                    <col width="50%"><col>
+                    <col width="150"><col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>图片</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    [#list product.images as image]
+                        <tr>
+                            <td>
+                                <input type="text" name="images" value="${image}" class="layui-input"/>
+                            </td>
+                            <td>
+                                <button type="button" class="layui-btn layui-btn-sm layui-btn-danger del-btn"><i class="layui-icon">&#xe640;</i></button>
+                            </td>
+                        </tr>
+                    [/#list]
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="layui-form-item">
@@ -80,6 +101,18 @@
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">
             <input type="text" name="content" value="${product.content}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">设置</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="isTop" lay-skin="primary" title="是否置顶" [#if product.isTop]checked=""[/#if]>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input type="text" name="order" value="${product.order}" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
