@@ -94,4 +94,40 @@ public class ProductController {
         map.put("producer", producerMap);
         return Message.success("请求成功", map);
     }
+
+    /**
+     * 点赞
+     *
+     * @param id 商品id
+     * @return
+     */
+    @GetMapping(value = "/likes")
+    @ResponseBody
+    public Message likes(Long id) {
+        Product product = productService.find(id);
+        if (product == null) {
+            return Message.error("商品不存在");
+        }
+        product.setLikes(product.getLikes() + 1);
+        productService.update(product);
+        return Message.success();
+    }
+
+    /**
+     * 浏览
+     *
+     * @param id 商品id
+     * @return
+     */
+    @GetMapping(value = "/views")
+    @ResponseBody
+    public Message views(Long id) {
+        Product product = productService.find(id);
+        if (product == null) {
+            return Message.error("商品不存在");
+        }
+        product.setViews(product.getViews() + 1);
+        productService.update(product);
+        return Message.success();
+    }
 }
