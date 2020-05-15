@@ -15,7 +15,7 @@ public interface ProductService extends BaseService<Product, Long> {
      *
      * @param pageNumber 页码
      * @param pageSize   页数量
-     * @param type       生厂商类型
+     * @param type       生产商类型
      * @param sortType   排序类型
      * @return
      */
@@ -26,7 +26,7 @@ public interface ProductService extends BaseService<Product, Long> {
      *
      * @param pageNumber 页码
      * @param pageSize   页数量
-     * @param producer   生厂商
+     * @param producer   生产商
      * @param sortType   排序类型
      * @return
      */

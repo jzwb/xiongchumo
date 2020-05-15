@@ -33,7 +33,7 @@
     //添加
     $(".data-add-btn").on("click", function () {
         var index = layer.open({
-            title: '添加生厂商',
+            title: '添加生产商',
             type: 2,
             shade: 0.2,
             maxmin:true,
@@ -61,7 +61,7 @@
         var data = obj.data;
         if (obj.event === 'edit') {
             var index = layer.open({
-                title: '编辑生厂商',
+                title: '编辑生产商',
                 type: 2,
                 shade: 0.2,
                 maxmin:true,

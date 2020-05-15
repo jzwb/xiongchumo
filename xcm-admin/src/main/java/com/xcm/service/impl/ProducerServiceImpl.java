@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service - 生厂商
+ * Service - 生产商
  */
 @Service
 public class ProducerServiceImpl extends BaseServiceImpl<Producer, Long> implements ProducerService {

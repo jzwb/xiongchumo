@@ -127,7 +127,7 @@ public class ProductController {
     }
 
     /**
-     * 列表（根据生厂商分组）
+     * 列表（根据生产商分组）
      *
      * @param pageNumber 页码
      * @param type       类型
@@ -164,6 +164,39 @@ public class ProductController {
                     }
                 }
                 map.put("products", newProducts);
+                list.add(map);
+            }
+        }
+        return Message.success("请求成功", list);
+    }
+
+    /**
+     * 列表（根据生产商）
+     *
+     * @param pageNumber 页码
+     * @param pageSize   页数量
+     * @param producerId 生产商id
+     * @param sortType   排序类型
+     * @return
+     */
+    @GetMapping(value = "/list/by_producer")
+    @ResponseBody
+    public Message list_by_producer(@RequestParam(defaultValue = "1", required = false) Integer pageNumber, @RequestParam(defaultValue = "50", required = false) Integer pageSize, Long producerId, @RequestParam(defaultValue = "NEW") Product.SortType sortType) {
+        Producer producer = producerService.find(producerId);
+        if (producer == null) {
+            return Message.error("生产商不存在");
+        }
+        List<Product> products = productService.findList(pageNumber, pageSize, producer, sortType);
+        List<Map<String, Object>> list = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(products)) {
+            for (Product product : products) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", product.getId());
+                map.put("title", product.getTitle());
+                map.put("images", product.getImages());
+                map.put("views", product.getViews());
+                map.put("likes", product.getLikes());
+                map.put("createDate", product.getCreateDate().getTime());
                 list.add(map);
             }
         }

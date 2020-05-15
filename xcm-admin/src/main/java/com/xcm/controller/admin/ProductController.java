@@ -96,7 +96,7 @@ public class ProductController extends BaseController {
      *
      * @param product           商品
      * @param productCategoryId 商品分类id
-     * @param producerId        生厂商id
+     * @param producerId        生产商id
      * @return
      */
     @PostMapping("/save")

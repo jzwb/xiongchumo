@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">生厂商</label>
+        <label class="layui-form-label">生产商</label>
         <div class="layui-input-block">
             <select name="producerId">
                 <option value=""></option>

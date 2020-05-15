@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * controller - 生厂商
+ * controller - 生产商
  */
 @Controller("apiProducerController")
 @RequestMapping("/api/producer")
@@ -58,7 +58,7 @@ public class ProducerController {
     /**
      * 详情
      *
-     * @param id 生厂商id
+     * @param id 生产商id
      * @return
      */
     @GetMapping(value = "/detail")
@@ -66,7 +66,7 @@ public class ProducerController {
     public Message detail(Long id) {
         Producer producer = producerService.find(id);
         if (producer == null) {
-            return Message.error("生厂商不存在");
+            return Message.error("生产商不存在");
         }
         Map<String, Object> map = new HashMap<>();
         map.put("id", producer.getId());
@@ -83,7 +83,7 @@ public class ProducerController {
     /**
      * 点赞
      *
-     * @param id 生厂商id
+     * @param id 生产商id
      * @return
      */
     @GetMapping(value = "/likes")
@@ -91,7 +91,7 @@ public class ProducerController {
     public Message likes(Long id) {
         Producer producer = producerService.find(id);
         if (producer == null) {
-            return Message.error("生厂商不存在");
+            return Message.error("生产商不存在");
         }
         producer.setLikes(producer.getLikes() + 1);
         producerService.update(producer);
@@ -101,7 +101,7 @@ public class ProducerController {
     /**
      * 浏览
      *
-     * @param id 生厂商id
+     * @param id 生产商id
      * @return
      */
     @GetMapping(value = "/views")
@@ -109,7 +109,7 @@ public class ProducerController {
     public Message views(Long id) {
         Producer producer = producerService.find(id);
         if (producer == null) {
-            return Message.error("生厂商不存在");
+            return Message.error("生产商不存在");
         }
         producer.setViews(producer.getViews() + 1);
         producerService.update(producer);

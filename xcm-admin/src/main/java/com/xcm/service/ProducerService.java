@@ -14,7 +14,7 @@ public interface ProducerService extends BaseService<Producer, Long> {
      *
      * @param pageNumber 页码
      * @param pageSize   页数量
-     * @param type       生厂商类型
+     * @param type       生产商类型
      * @param sortType   排序类型
      * @return
      */
