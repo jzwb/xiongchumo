@@ -3,6 +3,7 @@ package com.xcm.controller.api;
 import com.xcm.common.Message;
 import com.xcm.model.Producer;
 import com.xcm.model.Product;
+import com.xcm.service.ProducerService;
 import com.xcm.service.ProductService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,9 @@ import java.util.Map;
 public class ProductController {
 
     @Autowired
+    private ProducerService producerService;
+    @Autowired
     private ProductService productService;
-
-    /**
-     * 排序类型
-     */
-    public enum SortType {
-        NEW,//最新
-        RECOMMEND,//推荐
-        HOT//最热
-    }
 
     /**
      * 列表
@@ -47,7 +41,7 @@ public class ProductController {
      */
     @GetMapping(value = "/list")
     @ResponseBody
-    public Message list(@RequestParam(defaultValue = "1", required = false) Integer pageNumber, @RequestParam(defaultValue = "100", required = false) Integer pageSize, Producer.Type type, @RequestParam(defaultValue = "NEW") SortType sortType) {
+    public Message list(@RequestParam(defaultValue = "1", required = false) Integer pageNumber, @RequestParam(defaultValue = "50", required = false) Integer pageSize, Producer.Type type, @RequestParam(defaultValue = "NEW") Product.SortType sortType) {
         List<Product> products = productService.findList(pageNumber, pageSize, type, sortType);
         List<Map<String, Object>> list = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(products)) {
@@ -130,5 +124,49 @@ public class ProductController {
         product.setViews(product.getViews() + 1);
         productService.update(product);
         return Message.success();
+    }
+
+    /**
+     * 列表（根据生厂商分组）
+     *
+     * @param pageNumber 页码
+     * @param type       类型
+     * @param sortType   排序类型
+     * @return
+     */
+    @GetMapping(value = "/list/group_by_producer")
+    @ResponseBody
+    public Message list_group_by_producer(@RequestParam(defaultValue = "1", required = false) Integer pageNumber, Producer.Type type, @RequestParam(defaultValue = "NEW") Producer.SortType sortType) {
+        List<Producer> producers = producerService.findList(pageNumber, 10, type, sortType);
+        List<Map<String, Object>> list = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(producers)) {
+            for (Producer producer : producers) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", producer.getId());
+                map.put("name", producer.getName());
+                map.put("image", producer.getImage());
+                map.put("views", producer.getViews());
+                map.put("likes", producer.getLikes());
+                map.put("createDate", producer.getCreateDate().getTime());
+                //商品
+                List<Product> products = productService.findList(pageNumber, 4, producer, Product.SortType.NEW);
+                List<Map<String, Object>> newProducts = new ArrayList<>();
+                if (CollectionUtils.isNotEmpty(products)) {
+                    for (Product product : products) {
+                        Map<String, Object> newProduct = new HashMap<>();
+                        newProduct.put("id", product.getId());
+                        newProduct.put("title", product.getTitle());
+                        newProduct.put("images", product.getImages());
+                        newProduct.put("views", product.getViews());
+                        newProduct.put("likes", product.getLikes());
+                        newProduct.put("createDate", product.getCreateDate().getTime());
+                        newProducts.add(newProduct);
+                    }
+                }
+                map.put("products", newProducts);
+                list.add(map);
+            }
+        }
+        return Message.success("请求成功", list);
     }
 }

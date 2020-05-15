@@ -24,6 +24,15 @@ import java.util.List;
 @Table(name = "t_product")
 public class Product extends OrderEntity {
 
+    /**
+     * 排序类型
+     */
+    public enum SortType {
+        NEW,//最新
+        RECOMMEND,//推荐
+        HOT//最热
+    }
+
     private String title;//标题
     private String subTitle;//子标题
     private String imagesJson;//图片

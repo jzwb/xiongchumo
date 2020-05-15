@@ -1,6 +1,5 @@
 package com.xcm.service.impl;
 
-import com.xcm.controller.api.ProducerController;
 import com.xcm.dao.ProducerDao;
 import com.xcm.model.Producer;
 import com.xcm.service.ProducerService;
@@ -24,7 +23,7 @@ public class ProducerServiceImpl extends BaseServiceImpl<Producer, Long> impleme
     }
 
     @Override
-    public List<Producer> findList(Integer pageNumber, Integer pageSize, Producer.Type type, ProducerController.SortType sortType) {
+    public List<Producer> findList(Integer pageNumber, Integer pageSize, Producer.Type type, Producer.SortType sortType) {
         return producerDao.findList(pageNumber, pageSize, type, sortType);
     }
 }

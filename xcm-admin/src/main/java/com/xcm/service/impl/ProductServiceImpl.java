@@ -8,6 +8,7 @@ import com.xcm.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -26,7 +27,15 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
     }
 
     @Override
-    public List<Product> findList(Integer pageNumber, Integer pageSize, Producer.Type type, ProductController.SortType sortType) {
+    public List<Product> findList(Integer pageNumber, Integer pageSize, Producer.Type type, Product.SortType sortType) {
         return productDao.findList(pageNumber, pageSize, type, sortType);
+    }
+
+    @Override
+    public List<Product> findList(Integer pageNumber, Integer pageSize, Producer producer, Product.SortType sortType) {
+        if (producer == null) {
+            return Collections.emptyList();
+        }
+        return productDao.findList(pageNumber, pageSize, producer, sortType);
     }
 }

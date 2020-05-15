@@ -22,6 +22,15 @@ import java.util.List;
 public class Producer extends BaseEntity {
 
     /**
+     * 培训类型
+     */
+    public enum SortType {
+        NEW,//最新
+        RECOMMEND,//推荐
+        HOT//最热
+    }
+
+    /**
      * 类型枚举
      */
     public enum Type {

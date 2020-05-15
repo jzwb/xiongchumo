@@ -1,6 +1,5 @@
 package com.xcm.dao;
 
-import com.xcm.controller.api.ProductController;
 import com.xcm.model.Producer;
 import com.xcm.model.Product;
 
@@ -20,5 +19,16 @@ public interface ProductDao extends BaseDao<Product, Long> {
      * @param sortType   排序类型
      * @return
      */
-    List<Product> findList(Integer pageNumber, Integer pageSize, Producer.Type type, ProductController.SortType sortType);
+    List<Product> findList(Integer pageNumber, Integer pageSize, Producer.Type type, Product.SortType sortType);
+
+    /**
+     * 列表
+     *
+     * @param pageNumber 页码
+     * @param pageSize   页数量
+     * @param producer   生厂商
+     * @param sortType   排序类型
+     * @return
+     */
+    List<Product> findList(Integer pageNumber, Integer pageSize, Producer producer, Product.SortType sortType);
 }

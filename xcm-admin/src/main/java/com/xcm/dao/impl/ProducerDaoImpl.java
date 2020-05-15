@@ -1,6 +1,5 @@
 package com.xcm.dao.impl;
 
-import com.xcm.controller.api.ProducerController;
 import com.xcm.dao.ProducerDao;
 import com.xcm.model.BaseEntity;
 import com.xcm.model.OrderEntity;
@@ -20,7 +19,7 @@ import java.util.List;
 public class ProducerDaoImpl extends BaseDaoImpl<Producer, Long> implements ProducerDao {
 
     @Override
-    public List<Producer> findList(Integer pageNumber, Integer pageSize, Producer.Type type, ProducerController.SortType sortType) {
+    public List<Producer> findList(Integer pageNumber, Integer pageSize, Producer.Type type, Producer.SortType sortType) {
         if (pageNumber == null) {
             pageNumber = 1;
         }
@@ -36,11 +35,11 @@ public class ProducerDaoImpl extends BaseDaoImpl<Producer, Long> implements Prod
             restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("type"), type));
         }
         criteriaQuery.where(restrictions);
-        if (ProducerController.SortType.NEW.equals(sortType)) {
+        if (Producer.SortType.NEW.equals(sortType)) {
             criteriaQuery.orderBy(criteriaBuilder.desc(root.get(BaseEntity.CREATE_DATE_PROPERTY_NAME)));
-        } else if (ProducerController.SortType.RECOMMEND.equals(sortType)) {
+        } else if (Producer.SortType.RECOMMEND.equals(sortType)) {
             criteriaQuery.orderBy(criteriaBuilder.desc(root.get("isTop")), criteriaBuilder.desc(root.get(OrderEntity.ORDER_PROPERTY_NAME)), criteriaBuilder.desc(root.get(BaseEntity.CREATE_DATE_PROPERTY_NAME)));
-        } else if (ProducerController.SortType.HOT.equals(sortType)) {
+        } else if (Producer.SortType.HOT.equals(sortType)) {
         }
         return super.findList(criteriaQuery, (pageNumber - 1) * pageSize, pageSize, null, null);
     }

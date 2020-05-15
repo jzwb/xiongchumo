@@ -1,7 +1,7 @@
 package com.xcm.common;
 
 /**
- * 通用 - 公共参数
+ * 通用 - 公共属性
  */
 public final class CommonAttributes {
 

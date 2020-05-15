@@ -27,15 +27,6 @@ public class ProducerController {
     private ProducerService producerService;
 
     /**
-     * 排序类型
-     */
-    public enum SortType {
-        NEW,//最新
-        RECOMMEND,//推荐
-        HOT//最热
-    }
-
-    /**
      * 列表
      *
      * @param pageNumber 页码
@@ -46,7 +37,7 @@ public class ProducerController {
      */
     @GetMapping(value = "/list")
     @ResponseBody
-    public Message list(@RequestParam(defaultValue = "1", required = false) Integer pageNumber, @RequestParam(defaultValue = "100", required = false) Integer pageSize, Producer.Type type, @RequestParam(defaultValue = "NEW") SortType sortType) {
+    public Message list(@RequestParam(defaultValue = "1", required = false) Integer pageNumber, @RequestParam(defaultValue = "100", required = false) Integer pageSize, Producer.Type type, @RequestParam(defaultValue = "NEW") Producer.SortType sortType) {
         List<Producer> producers = producerService.findList(pageNumber, pageSize, type, sortType);
         List<Map<String, Object>> list = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(producers)) {
