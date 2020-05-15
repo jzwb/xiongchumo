@@ -1,9 +1,23 @@
 package com.xcm.service;
 
+import com.xcm.controller.api.ProducerController;
 import com.xcm.model.Producer;
+
+import java.util.List;
 
 /**
  * Service - 生产商
  */
 public interface ProducerService extends BaseService<Producer, Long> {
+
+    /**
+     * 列表
+     *
+     * @param pageNumber 页码
+     * @param pageSize   页数量
+     * @param type       生厂商类型
+     * @param sortType   排序类型
+     * @return
+     */
+    List<Producer> findList(Integer pageNumber, Integer pageSize, Producer.Type type, ProducerController.SortType sortType);
 }

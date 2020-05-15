@@ -86,6 +86,7 @@ public class ProductController {
         map.put("views", product.getViews());
         map.put("likes", product.getLikes());
         map.put("content", product.getContent());
+        map.put("createDate", product.getCreateDate().getTime());
         Producer producer = product.getProducer();
         Map<String, Object> producerMap = new HashMap<>();
         producerMap.put("id", producer.getId());

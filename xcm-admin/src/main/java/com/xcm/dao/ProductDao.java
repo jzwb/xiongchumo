@@ -12,7 +12,7 @@ import java.util.List;
 public interface ProductDao extends BaseDao<Product, Long> {
 
     /**
-     * 置顶列表
+     * 列表
      *
      * @param pageNumber 页码
      * @param pageSize   页数量
