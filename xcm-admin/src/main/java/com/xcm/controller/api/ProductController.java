@@ -64,4 +64,34 @@ public class ProductController {
         }
         return Message.success("请求成功", list);
     }
+
+    /**
+     * 详情
+     *
+     * @param id 商品id
+     * @return
+     */
+    @GetMapping(value = "/detail")
+    @ResponseBody
+    public Message detail(Long id) {
+        Product product = productService.find(id);
+        if (product == null) {
+            return Message.error("商品不存在");
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", product.getId());
+        map.put("title", product.getTitle());
+        map.put("subTitle", product.getSubTitle());
+        map.put("images", product.getImages());
+        map.put("views", product.getViews());
+        map.put("likes", product.getLikes());
+        map.put("content", product.getContent());
+        Producer producer = product.getProducer();
+        Map<String, Object> producerMap = new HashMap<>();
+        producerMap.put("id", producer.getId());
+        producerMap.put("name", producer.getName());
+        producerMap.put("image", producer.getImage());
+        map.put("producer", producerMap);
+        return Message.success("请求成功", map);
+    }
 }

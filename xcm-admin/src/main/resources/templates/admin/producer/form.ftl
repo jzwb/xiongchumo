@@ -34,12 +34,12 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">首图</label>
+        <label class="layui-form-label">图片</label>
         <div class="layui-input-block">
             <div class="layui-upload-list">
-                <input type="text" name="firstImages" value="${producer.firstImages}" class="layui-input">
+                <input type="text" name="image" value="${producer.image}" class="layui-input">
             </div>
-            <button type="button" class="layui-btn file-upload-btn" lay-data="{data:{fileType:'image'}}" data-input-name="firstImages">
+            <button type="button" class="layui-btn file-upload-btn" lay-data="{data:{fileType:'image'}}" data-input-name="image">
                 <i class="layui-icon">&#xe67c;</i>上传图片
             </button>
         </div>

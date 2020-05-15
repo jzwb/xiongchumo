@@ -47,10 +47,10 @@ public class Producer extends BaseEntity {
     }
 
     private String name;//名称
-    private Type type;
+    private Type type;//类型
     private Long views = 0L;//浏览量
     private Long likes = 0L;//点赞数
-    private String firstImages;//首图
+    private String image;//图片
     private String content;//内容
     private List<Product> products = new ArrayList<>();//商品
 
@@ -92,12 +92,12 @@ public class Producer extends BaseEntity {
         this.likes = likes;
     }
 
-    public String getFirstImages() {
-        return firstImages;
+    public String getImage() {
+        return image;
     }
 
-    public void setFirstImages(String firstImages) {
-        this.firstImages = firstImages;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getContent() {

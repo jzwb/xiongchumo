@@ -81,7 +81,7 @@ public class ProducerController extends BaseController {
         }
         pProducer.setName(producer.getName());
         pProducer.setType(producer.getType());
-        pProducer.setFirstImages(producer.getFirstImages());
+        pProducer.setImage(producer.getImage());
         pProducer.setViews(producer.getViews());
         pProducer.setLikes(producer.getLikes());
         pProducer.setContent(producer.getContent());
