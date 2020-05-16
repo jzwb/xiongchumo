@@ -36,6 +36,7 @@ public class User extends BaseEntity {
     private String unionId;//微信unionId
     private String openId;//微信openId
     private List<ProductCollection> productCollections = new ArrayList<>();//商品收藏
+    private List<BrowsingHistory> browsingHistories = new ArrayList<>();//浏览历史
 
     public String getEmail() {
         return email;
@@ -103,5 +104,16 @@ public class User extends BaseEntity {
 
     public void setProductCollections(List<ProductCollection> productCollections) {
         this.productCollections = productCollections;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("createDate desc")
+    @JoinColumn(name = "user", updatable = false)
+    public List<BrowsingHistory> getBrowsingHistories() {
+        return browsingHistories;
+    }
+
+    public void setBrowsingHistories(List<BrowsingHistory> browsingHistories) {
+        this.browsingHistories = browsingHistories;
     }
 }
