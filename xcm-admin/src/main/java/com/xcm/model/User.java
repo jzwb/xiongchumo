@@ -3,8 +3,15 @@ package com.xcm.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xcm.interceptor.UserInterceptor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  Entity - 用户
@@ -28,6 +35,7 @@ public class User extends BaseEntity {
     private String password;//密码
     private String unionId;//微信unionId
     private String openId;//微信openId
+    private List<ProductCollection> productCollections = new ArrayList<>();//商品收藏
 
     public String getEmail() {
         return email;
@@ -84,5 +92,16 @@ public class User extends BaseEntity {
 
     public void setOpenId(String openId) {
         this.openId = openId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("createDate desc")
+    @JoinColumn(name = "user", updatable = false)
+    public List<ProductCollection> getProductCollections() {
+        return productCollections;
+    }
+
+    public void setProductCollections(List<ProductCollection> productCollections) {
+        this.productCollections = productCollections;
     }
 }
