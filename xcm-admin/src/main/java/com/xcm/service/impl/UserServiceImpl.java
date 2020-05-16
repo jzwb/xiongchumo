@@ -13,6 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -149,8 +152,8 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 
     @Override
     @Transactional(readOnly = true)
-    public boolean emailExists(String email){
-        if(StringUtils.isBlank(email)){
+    public boolean emailExists(String email) {
+        if (StringUtils.isBlank(email)) {
             return false;
         }
         return userService.count(Filter.eq("email", email)) > 0;
@@ -158,11 +161,19 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 
     @Override
     @Transactional(readOnly = true)
-    public boolean mobileExists(String mobile){
-        if(StringUtils.isBlank(mobile)){
+    public boolean mobileExists(String mobile) {
+        if (StringUtils.isBlank(mobile)) {
             return false;
         }
         return userService.count(Filter.eq("mobile", mobile)) > 0;
+    }
+
+    @Override
+    public boolean nickNameExists(String nickName) {
+        if (StringUtils.isBlank(nickName)) {
+            return false;
+        }
+        return userService.count(Filter.eq("nickName", nickName)) > 0;
     }
 
     @Override
@@ -181,5 +192,24 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
             return true;
         }
         return !userService.mobileExists(newMobile);
+    }
+
+    @Override
+    public boolean nickNameUnique(String oldNickName, String newNickName) {
+        if (StringUtils.equalsIgnoreCase(oldNickName, newNickName)) {
+            return true;
+        }
+        return !userService.nickNameExists(newNickName);
+    }
+
+    @Override
+    public User getCurrent() {
+        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        Principal principal = (Principal) request.getSession().getAttribute(User.PRINCIPAL_ATTRIBUTE_NAME);
+        if (principal != null) {
+            return userDao.find(principal.getId());
+        }
+        return null;
     }
 }

@@ -90,6 +90,14 @@ public interface UserService extends BaseService<User, Long> {
     boolean mobileExists(String mobile);
 
     /**
+     * 昵称是否存在
+     *
+     * @param nickName 昵称
+     * @return
+     */
+    boolean nickNameExists(String nickName);
+
+    /**
      * 邮箱是否唯一
      *
      * @param oldEmail 旧邮箱
@@ -106,4 +114,20 @@ public interface UserService extends BaseService<User, Long> {
      * @return
      */
     boolean mobileUnique(String oldMobile, String newMobile);
+
+    /**
+     * 昵称是否唯一
+     *
+     * @param oldNickName 旧昵称
+     * @param newNickName 新昵称
+     * @return
+     */
+    boolean nickNameUnique(String oldNickName, String newNickName);
+
+    /**
+     * 获取当前登陆用户
+     *
+     * @return
+     */
+    User getCurrent();
 }
